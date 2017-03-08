@@ -1,0 +1,48 @@
+﻿Administrador:
+	utilizadores, quartos,cliente CRUD
+Perfil: 0 - Admin; 1 - Funcionário
+
+Funcionário:
+	clientes CRUD,
+	entrada:-> quartos U
+			-> entradas C
+	saida:  -> quartos U
+			-> entradas U
+
+create table utilizadores(
+	nome varchar(50) not null primary key,
+	password varchar(64) not null,
+	perfil int not null,
+	estado bit not null
+);
+
+create table clientes(
+	id int identity primary key,
+	nome varchar(50) not null,
+	morada varchar(100) not null,
+	cp varchar(8) not null,
+	email varchar(100) null,
+	telefone varchar(9) null,
+	data_nascimento date not null
+);
+
+create table quartos(
+	nr int identity primary key,
+	piso int not null,
+	lotacao int not null,
+	estado bit not null,
+	idCliente int foreign key references clientes(id) null,
+	custo_dia decimal(6,2) not null check(custo_dia>0)
+);
+
+create table entradaSaida(
+	id int identity primary key,
+	id_quarto int not null foreign key references quartos(nr),
+	id_cliente int not null foreign key references clientes(id),
+	data_entrada date not null,
+	data_saida date,
+	valor_pago decimal(12,2)
+)
+
+INSERT INTO utilizadores(nome,password,perfil,estado)
+VALUES ('admin',HASHBYTES('SHA2_512','12345'),0,1)
