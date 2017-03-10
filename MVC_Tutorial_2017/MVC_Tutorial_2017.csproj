@@ -192,6 +192,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BD.cs" />
+    <Compile Include="Models\ClientesModel.cs" />
+    <Compile Include="Models\EntradaSaidaModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\QuartosModel.cs" />
     <Compile Include="Models\UtilizadoresModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -239,6 +243,7 @@
     <Content Include="Views\Utilizadores\Create.cshtml" />
     <Content Include="Views\Utilizadores\Index.cshtml" />
     <Content Include="Views\Utilizadores\Delete.cshtml" />
+    <Content Include="Views\Utilizadores\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

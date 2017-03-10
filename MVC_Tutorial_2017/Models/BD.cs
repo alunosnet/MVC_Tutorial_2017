@@ -121,6 +121,23 @@ namespace MVC_Tutorial_2017
             }
             return true;
         }
+        public int executaScalar(string sql, List<SqlParameter> parametros)
+        {
+            int valor = -1;
+            try
+            {
+                SqlCommand comando = new SqlCommand(sql, ligacaoBD);
+                comando.Parameters.AddRange(parametros.ToArray());
+                valor = (int)comando.ExecuteScalar();
+                comando.Dispose();
+            }
+            catch (Exception erro)
+            {
+                Console.Write(erro.Message);
+                return valor;
+            }
+            return valor;
+        }
         #endregion
     }
 }

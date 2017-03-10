@@ -86,6 +86,33 @@ namespace MVC_Tutorial_2017.Models
             return lista;
         }
         //update
+        public void editarUtilizadores(UtilizadoresModel novo)
+        {
+            string sql = @"UPDATE Utilizadores SET password=HASHBYTES('SHA2_512',@password),
+                        perfil=@perfil,estado=@estado WHERE nome=@nome";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter(){ParameterName="@nome",
+                    SqlDbType =SqlDbType.VarChar,Value=novo.nome},
+                new SqlParameter(){ParameterName="@password",
+                    SqlDbType =SqlDbType.VarChar,Value=novo.password},
+                 new SqlParameter(){ParameterName="@perfil",
+                    SqlDbType =SqlDbType.Int,Value=novo.perfil},
+                 new SqlParameter(){ParameterName="@estado",
+                    SqlDbType =SqlDbType.Int,Value=novo.estado},
+            };
+            BD.Instance.executaComando(sql, parametros);
+        }
         //delete
+        public void removerUtilizador(string nome)
+        {
+            string sql = "DELETE FROM Utilizadores WHERE nome=@nome";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter(){ParameterName="@nome",
+                    SqlDbType =SqlDbType.VarChar,Value=nome}
+            };
+            BD.Instance.executaComando(sql, parametros);
+        }
     }
 }
