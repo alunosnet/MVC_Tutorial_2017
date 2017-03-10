@@ -64,6 +64,27 @@ namespace MVC_Tutorial_2017.Models
             }
             return lista;
         }
+        public List<UtilizadoresModel> lista(string nome)
+        {
+            string sql = "SELECT * FROM utilizadores WHERE nome like @nome";
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter(){ParameterName="@nome",
+                    SqlDbType =SqlDbType.VarChar,Value="%"+nome+"%"}
+            };
+            DataTable registos = BD.Instance.devolveConsulta(sql,parametros);
+            List<UtilizadoresModel> lista = new List<UtilizadoresModel>();
+            foreach (DataRow data in registos.Rows)
+            {
+                UtilizadoresModel novo = new UtilizadoresModel();
+                novo.nome = data[0].ToString();
+                novo.password = data[1].ToString();
+                novo.perfil = int.Parse(data[2].ToString());
+                novo.estado = bool.Parse(data[3].ToString());
+                lista.Add(novo);
+            }
+            return lista;
+        }
         //update
         //delete
     }

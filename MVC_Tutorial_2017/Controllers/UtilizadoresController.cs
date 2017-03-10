@@ -33,5 +33,15 @@ namespace MVC_Tutorial_2017.Controllers
             }
             return View(novo);
         }
+        public ActionResult Delete(string id)
+        {
+            return View(bd.lista(id)[0]);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(string id)
+        {
+
+        }
     }
 }
