@@ -37,7 +37,7 @@ namespace MVC_Tutorial_2017.Models
         [DataType(DataType.Date)]
         [Display(Name = "Data de Nascimento")]
         [Required(ErrorMessage = "Tem de indicar a data de nascimento do cliente")]
-        public DateTime dada_nascimento { get; set; }
+        public DateTime data_nascimento { get; set; }
     }
 
     public class ClientesBD
@@ -59,7 +59,7 @@ namespace MVC_Tutorial_2017.Models
                 novo.cp = dados[3].ToString();
                 novo.email = dados[4].ToString();
                 novo.telefone = dados[5].ToString();
-                novo.dada_nascimento = DateTime.Parse(dados[6].ToString());
+                novo.data_nascimento = DateTime.Parse(dados[6].ToString());
                 lista.Add(novo);
             }
 
@@ -84,7 +84,7 @@ namespace MVC_Tutorial_2017.Models
                 novo.cp = dados[3].ToString();
                 novo.email = dados[4].ToString();
                 novo.telefone = dados[5].ToString();
-                novo.dada_nascimento = DateTime.Parse(dados[6].ToString());
+                novo.data_nascimento = DateTime.Parse(dados[6].ToString());
                 lista.Add(novo);
             }
 
@@ -109,7 +109,42 @@ namespace MVC_Tutorial_2017.Models
                 novo.cp = dados[3].ToString();
                 novo.email = dados[4].ToString();
                 novo.telefone = dados[5].ToString();
-                novo.dada_nascimento = DateTime.Parse(dados[6].ToString());
+                novo.data_nascimento = DateTime.Parse(dados[6].ToString());
+                lista.Add(novo);
+            }
+
+            return lista;
+        }
+        public int nrRegistos()
+        {
+            string sql = @"SELECT count(*) from clientes";
+            return BD.Instance.executaScalar(sql);
+        }
+        public List<ClientesModel> listaPagina(int nPagina,int registosPorPagina)
+        {
+            string sql = @"SELECT * FROM (select row_number() over (order by nome) as rownum, *
+                            FROM Clientes) AS p WHERE rownum>=@primeiro AND rownum<=@ultimo";
+
+            int primeiro = (nPagina-1) * registosPorPagina;
+            int ultimo = primeiro + registosPorPagina;
+            List<SqlParameter> parametros = new List<SqlParameter>()
+            {
+                new SqlParameter() {ParameterName="@primeiro",SqlDbType=SqlDbType.Int,Value=primeiro },
+                new SqlParameter() {ParameterName="@ultimo",SqlDbType=SqlDbType.Int,Value=ultimo },
+            };
+            DataTable registos = BD.Instance.devolveConsulta(sql, parametros);
+            List<ClientesModel> lista = new List<ClientesModel>();
+
+            foreach (DataRow dados in registos.Rows)
+            {
+                ClientesModel novo = new ClientesModel();
+                novo.id = int.Parse(dados[1].ToString());
+                novo.nome = dados[2].ToString();
+                novo.morada = dados[3].ToString();
+                novo.cp = dados[4].ToString();
+                novo.email = dados[5].ToString();
+                novo.telefone = dados[6].ToString();
+                novo.data_nascimento = DateTime.Parse(dados[7].ToString());
                 lista.Add(novo);
             }
 
@@ -126,7 +161,7 @@ namespace MVC_Tutorial_2017.Models
                 new SqlParameter() {ParameterName="@cp",SqlDbType=SqlDbType.VarChar,Value=novo.cp },
                 new SqlParameter() {ParameterName="@email",SqlDbType=SqlDbType.VarChar,Value=novo.email },
                 new SqlParameter() {ParameterName="@telefone",SqlDbType=SqlDbType.VarChar,Value=novo.telefone },
-                new SqlParameter() {ParameterName="@data",SqlDbType=SqlDbType.Date,Value=novo.dada_nascimento },
+                new SqlParameter() {ParameterName="@data",SqlDbType=SqlDbType.Date,Value=novo.data_nascimento },
             };
             int id = (int)BD.Instance.executaScalar(sql, parametros);
             return id;
@@ -143,7 +178,7 @@ namespace MVC_Tutorial_2017.Models
                 new SqlParameter() {ParameterName="@cp",SqlDbType=SqlDbType.VarChar,Value=cliente.cp },
                 new SqlParameter() {ParameterName="@email",SqlDbType=SqlDbType.VarChar,Value=cliente.email },
                 new SqlParameter() {ParameterName="@telefone",SqlDbType=SqlDbType.VarChar,Value=cliente.telefone },
-                new SqlParameter() {ParameterName="@data",SqlDbType=SqlDbType.Date,Value=cliente.dada_nascimento },
+                new SqlParameter() {ParameterName="@data",SqlDbType=SqlDbType.Date,Value=cliente.data_nascimento },
                 new SqlParameter() {ParameterName="@id",SqlDbType=SqlDbType.Int,Value=cliente.id },
             };
             BD.Instance.executaComando(sql, parametros);
@@ -178,7 +213,7 @@ namespace MVC_Tutorial_2017.Models
                 novo.cp = dados[3].ToString();
                 novo.email = dados[4].ToString();
                 novo.telefone = dados[5].ToString();
-                novo.dada_nascimento = DateTime.Parse(dados[6].ToString());
+                novo.data_nascimento = DateTime.Parse(dados[6].ToString());
                 lista.Add(novo);
             }
 

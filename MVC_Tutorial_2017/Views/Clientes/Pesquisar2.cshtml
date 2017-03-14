@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Pesquisar2";
+}
+
+<h2>Pesquisar2</h2>
+
+Pesquisar:<input type="text" name="tbNome" id="tbNome" class="form-control" />
+
+<table id="Resultado" class="table">
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Morada
+        </th>
+        <th>
+            Código Postal
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Telefone
+        </th>
+        <th>
+            Data Nascimento
+        </th>
+        <th>
+            Fotografia
+        </th>
+        <th></th>
+    </tr>
+</table>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(function () {
+        $("#tbNome").keyup(function () {
+            $("#Resultado tr td").remove();
+            var nome = $("#tbNome").val();
+            var url = "PesquisarJson/"+nome;
+            $.ajax({
+                type: "GET",
+                url: url,
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    var dados = r;
+                    for (var i = 0; i < dados.length; i++) {
+                        console.debug(dados[i]);
+                        var linha = '<tr><td>';
+                        linha += dados[i].nome + '</td><td>';
+                        linha += dados[i].morada + '</td><td>';
+                        linha += dados[i].cp + '</td><td>';
+                        linha += dados[i].email + '</td><td>';
+                        linha += dados[i].telefone + '</td><td>';
+                        linha += dados[i].data_nascimento + '</td><td>';
+                        linha +='<img src="/Content/Imagens/'+dados[i].id+'.jpg" Width="100"/>';
+                        linha += '</td></tr>';
+                        $("#Resultado").append(linha);
+                    }
+                }
+            });
+        });
+    })
+</script>

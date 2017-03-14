@@ -11,10 +11,17 @@ namespace MVC_Tutorial_2017.Controllers
     public class ClientesController : Controller
     {
         ClientesBD bd = new ClientesBD();
+        int registosPorPagina = 5;
         // GET: Clientes
         public ActionResult Index()
         {
             return View(bd.lista());
+        }
+        public ActionResult Index2(int? id)
+        {
+            if (id == null) id = 1;
+            ViewBag.paginaAtual = id;
+            return View(bd.listaPagina((int)id, registosPorPagina));
         }
         public ActionResult Create()
         {
@@ -73,6 +80,22 @@ namespace MVC_Tutorial_2017.Controllers
         public ActionResult Pesquisar()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult Pesquisar(string tbNome)
+        {
+            ViewBag.listaClientes = bd.pesquisa(tbNome);
+            return View();
+        }
+        public ActionResult Pesquisar2()
+        {
+            return View();
+        }
+        public JsonResult PesquisarJson(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+                return Json(null, JsonRequestBehavior.AllowGet);
+            return Json(bd.pesquisa(id), JsonRequestBehavior.AllowGet);
         }
     }
 }

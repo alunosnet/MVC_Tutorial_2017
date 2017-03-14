@@ -259,3 +259,8 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/MVC_Tutorial_2017/Content/Imagens/2.jpg
+/MVC_Tutorial_2017/Content/Imagens/3.jpg
+/MVC_Tutorial_2017/Content/Imagens/4.jpg
+/MVC_Tutorial_2017/Content/Imagens/5.jpg
+/MVC_Tutorial_2017/Content/Imagens/6.jpg
