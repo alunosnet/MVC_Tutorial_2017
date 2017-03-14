@@ -22,11 +22,20 @@ namespace MVC_Tutorial_2017.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ClientesModel dados)
+        public ActionResult Create(ClientesModel dados,HttpPostedFileBase fotografia)
         {
             if (ModelState.IsValid)
             {
-                bd.adicionarCliente(dados);
+                if(fotografia==null)
+                {
+                    ModelState.AddModelError("", "Indique uma fotografia para o cliente");
+                    return View(dados);
+                }
+                int id=bd.adicionarCliente(dados);
+
+                string caminho = Server.MapPath("~/Content/Imagens/") + id + ".jpg";
+                fotografia.SaveAs(caminho);
+              
                 return RedirectToAction("index");
             }
             return View(dados);
