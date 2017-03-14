@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace MVC_Tutorial_2017.Controllers
 {
+    [Authorize]
     public class ClientesController : Controller
     {
         ClientesBD bd = new ClientesBD();
@@ -68,6 +69,10 @@ namespace MVC_Tutorial_2017.Controllers
         {
             bd.removerCliente((int)id);
             return View("index");
+        }
+        public ActionResult Pesquisar()
+        {
+            return View();
         }
     }
 }

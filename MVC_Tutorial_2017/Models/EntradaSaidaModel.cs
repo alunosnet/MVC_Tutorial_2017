@@ -38,8 +38,8 @@ namespace MVC_Tutorial_2017.Models
                 novo.id_quarto = int.Parse(dados[1].ToString());
                 novo.id_cliente = int.Parse(dados[2].ToString());
                 novo.data_entrada = DateTime.Parse(dados[3].ToString());
-                novo.data_saida = DateTime.Parse(dados[4].ToString());
-                novo.valor_pago = Decimal.Parse(dados[5].ToString());
+               // novo.data_saida = DateTime.Parse(dados[4].ToString());
+               // novo.valor_pago = Decimal.Parse(dados[5].ToString());
                 lista.Add(novo);
             }
 
