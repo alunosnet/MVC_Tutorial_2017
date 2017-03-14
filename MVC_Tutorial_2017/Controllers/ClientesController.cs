@@ -91,11 +91,21 @@ namespace MVC_Tutorial_2017.Controllers
         {
             return View();
         }
+        public ActionResult Pesquisar3()
+        {
+            return View();
+        }
         public JsonResult PesquisarJson(string id)
         {
             if (String.IsNullOrEmpty(id))
                 return Json(null, JsonRequestBehavior.AllowGet);
             return Json(bd.pesquisa(id), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult PesquisarJson2(string nome)
+        {
+            if (String.IsNullOrEmpty(nome))
+                return Json(null, JsonRequestBehavior.AllowGet);
+            return Json(bd.pesquisa(nome), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -40,17 +40,16 @@ Pesquisar:<input type="text" name="tbNome" id="tbNome" class="form-control" />
         $("#tbNome").keyup(function () {
             $("#Resultado tr td").remove();
             var nome = $("#tbNome").val();
-            var url = "PesquisarJson/"+nome;
+            var url = "PesquisarJson2";
             $.ajax({
                 type: "GET",
                 url: url,
-                data: '{}',
+                data: {'nome':nome},
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (dados) {
                     for (var i = 0; i < dados.length; i++) {
-                       // console.debug(dados[i]);
-                        var data = new Date(parseInt(dados[i].data_nascimento.substr(6)));
+                        var data =new Date(parseInt(dados[i].data_nascimento.substr(6)));
                         var linha = '<tr><td>';
                         linha += dados[i].nome + '</td><td>';
                         linha += dados[i].morada + '</td><td>';

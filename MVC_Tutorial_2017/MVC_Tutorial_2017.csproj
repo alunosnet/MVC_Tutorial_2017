@@ -265,6 +265,7 @@
     <Content Include="Views\Clientes\Index2.cshtml" />
     <Content Include="Views\Clientes\Pesquisar.cshtml" />
     <Content Include="Views\Clientes\Pesquisar2.cshtml" />
+    <Content Include="Views\Clientes\Pesquisar3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
