@@ -75,7 +75,7 @@ namespace MVC_Tutorial_2017.Controllers
         public ActionResult ConfirmarDelete(int? id)
         {
             bd.removerCliente((int)id);
-            return View("index");
+            return RedirectToAction("index");
         }
         public ActionResult Pesquisar()
         {
@@ -107,5 +107,6 @@ namespace MVC_Tutorial_2017.Controllers
                 return Json(null, JsonRequestBehavior.AllowGet);
             return Json(bd.pesquisa(nome), JsonRequestBehavior.AllowGet);
         }
+
     }
 }
